@@ -8,8 +8,6 @@ on:
 jobs:
   update-gist:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Update gist
         uses: maxam2017/productive-box@master
@@ -17,4 +15,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIST_ID: 475c67af71e4b9abbd0492754ce0caef
           TIMEZONE: Asia/Seoul
-      - uses: gautamkrishnar/keepalive-workflow@v2
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1
